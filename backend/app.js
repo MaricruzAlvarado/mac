@@ -3,11 +3,14 @@ const {ApolloServer}=require ('apollo-server-express')
 
 const {typeDefs}=require('./typeDefs')
 const {resolvers}=require('./resolvers')
+const { connectDB } = require('./db')
+
 const app= express()
+connectDB()
 
 app.get('/',(req,res)=>res.send('Welcome to my api'))
 module.exports=app 
-
+ 
 async function start(){
     //Toda aplicacion de Graphql necesita TypeDefs y Resolvers
     const apolloServer=new ApolloServer({
