@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -13,7 +15,7 @@ import { BrowserRouter } from "react-router-dom";
  */
 
 const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql"});
+  uri: "/graphql"});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
