@@ -222,8 +222,8 @@ export const EmployeesList = () => {
 							{
 								icon: tableIcons.Edit,
 								tooltip: "Edit Employee",
-								onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
-							}
+								onClick: (event, rowData) =>seleccionarEmpleado(rowData, "Editar")
+							},
 						]}
 						option={{ actionsColumnIndex: -1 }}
 					/>
