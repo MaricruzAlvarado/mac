@@ -2,8 +2,8 @@ const { PrismaClient } = require("@prisma/client");
 const Employee = require("./models/Employee");
 const Admin = require("./models/Admin");
 const bcrypt = require("bcryptjs");
-
 const prisma = new PrismaClient();
+
 const resolvers = {
   /*
    *
@@ -12,20 +12,35 @@ const resolvers = {
    */
  
   Query: {
-    login: async (_, args) => {
+    login: async (parent, args) => {
       const { name, password } = args;
-      const admin = await Admin.findOne();
-      if ((await bcrypt.compare(password, admin.password)) && name == admin.name
-      ) {
-        console.log("Hola Admin :)")
-        return admin
-      } else {
-        console.log("Usuario y/o Contraseña incorrectos")
-        return {}
+      const adminError= {name:"error", id:"error", password:"error"};
+      const admin = await prisma.admins.findFirst({
+        where: {
+          name: {
+            equals: name}
+        }
+      });
+      if (admin){
+          if ((await bcrypt.compare(password, admin.password)) && name == admin.name) {
+            console.log("Hola Admin :)")
+            return admin
+          } else{
+            console.log("Usuario y/o Contraseña incorrectos")
+            return adminError
+          }
       }
+        else {
+          console.log("Usuario y/o Contraseña incorrectos")
+          return adminError
+        }
     },
     getAdminByName: async (_, args) => {
-      const admin = await Admin.findOne();
+      const admin = await prisma.admins.findFirst({
+        where: {
+          name: {
+            equals: args.name}
+        }})
       return admin
     },
     getAllEmployees: async (_, context) => {

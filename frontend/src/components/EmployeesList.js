@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from "react";
+import React, {  useState } from "react";
 import Box from "@mui/material/Box";
 import MaterialTable from "material-table";
 import { GET_ALL_EMPLOYEES } from "../GraphQL/Querys";
@@ -66,7 +66,7 @@ export const EmployeesList = () => {
 
 	const { loading, error, data } = useQuery(GET_ALL_EMPLOYEES);
 
-	const [updateEmployee, { result }] = useMutation(UPDATE_USER, {
+	const [updateEmployee] = useMutation(UPDATE_USER, {
 		refetchQueries: [{ query: GET_ALL_EMPLOYEES }],
 	});
 
@@ -190,9 +190,6 @@ export const EmployeesList = () => {
 		if (caso === "Editar") abrirCerrarModalEditar();
 	};
 
-	if (data) {
-		//console.log(JSON.stringify(data.getAllEmployees))
-	}
 	if (error) alert(error);
 
 	return (
@@ -216,13 +213,17 @@ export const EmployeesList = () => {
 						icons={tableIcons}
 						columns={columns}
 						data={data.getAllEmployees}
+						options= {{
+							debounceInterval: 2000,
+							searchFieldStyle:{
+								width: 800 },
+							}}
 						actions={[
 							{
 								icon: tableIcons.Edit,
 								tooltip: "Edit Employee",
-								onClick: (event, rowData) =>
-									seleccionarEmpleado(rowData, "Editar"),
-							},
+								onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
+							}
 						]}
 						option={{ actionsColumnIndex: -1 }}
 					/>

@@ -1,5 +1,4 @@
-
-
+require('dotenv').config()
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -15,7 +14,7 @@ import { BrowserRouter } from "react-router-dom";
  */
 
 const client = new ApolloClient({
-  uri: "/graphql"});
+  uri: process.env.NEXT_PUBLIC_BACKEND_URL});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -5,25 +5,15 @@ const { typeDefs } = require("./typeDefs");
 const { resolvers } = require("./resolvers");
 const { connectDB } = require("./db");
 const cors = require("cors");
-
-/**
- *
- *  Conexión a la base de datos
- *
- */
-
 const app = express();
+app.use(cors({origin:'*'}))
+
 connectDB();
 
-app.use(
-  cors({
-    origin:"*"}))
-
-app.get("/", (req, res) => res.send("Welcome to my api"));
+app.get("/", (req, res) => res.send("Welcome to my Api"));
 module.exports = app;
 
 async function start() {
-  //Toda aplicacion de Graphql necesita TypeDefs y Resolvers
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers
@@ -34,7 +24,7 @@ async function start() {
 
   app.get("*", (req, res) => res.status(484).send("Not found"))
   app.listen(process.env.PORT, () => {
-    console.log("Server on port 3000", process.env.PORT);
+    console.log("Server on port ", process.env.PORT);
   });
 }
 start();

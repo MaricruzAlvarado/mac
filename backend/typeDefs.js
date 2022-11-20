@@ -57,7 +57,7 @@ const typeDefs = gql`
   type Query {
     getAllEmployees: [Employee]
     getAdminByName(name: String!): Admin
-    login(name: String, password: String): Admin
+    login(name: String!, password: String!): Admin
     getEmployeesByAny(filter: String!): [Employee]
   }
 

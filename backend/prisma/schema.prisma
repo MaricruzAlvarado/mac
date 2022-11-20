@@ -10,7 +10,7 @@ datasource db {
 model admins {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   v        Int    @map("__v")
-  name     String
+  name     String 
   password String
 }
 
